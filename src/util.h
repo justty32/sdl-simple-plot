@@ -18,9 +18,20 @@ bool is_in_rectwh(int x, int y, int minx, int miny, int w, int h){
     return (x > minx && x < minx + w && y > miny && y < miny + h);
 }
 
-int pn(int n){
+template<typename T>
+int pn(T n){
     if (n < 0) return -1;
     else return 1;
+}
+
+template<typename T>
+T after_point(T val){
+    if constexpr(std::is_same<T, double>::value || std::is_same<T, float>::value){
+        val = abs(val);
+        return (val - static_cast<unsigned long long>(val)) * pn(val);
+    }else{
+        return 0;
+    }
 }
 
 #endif // ! MY_UTIL_H

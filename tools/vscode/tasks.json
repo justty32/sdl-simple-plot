@@ -1,0 +1,30 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++-10 建置使用中檔案",
+            "command": "/usr/bin/g++-10",
+            "args": [
+                "main.cpp",
+                "-I",
+                "/usr/include/SDL2",
+                "-l",
+                "SDL2",
+                "-o",
+                "exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "偵錯工具產生的工作。"
+        }
+    ],
+    "version": "2.0.0"
+}
