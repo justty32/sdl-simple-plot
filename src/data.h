@@ -8,7 +8,7 @@
 template<typename T>
 struct Data{
     enum Interpolation_type{
-        Linear, Constant, Polynomial, max
+        Linear, Constant, Polynomial, _max
     };
     enum Compression_type{
         Abort, Average, max
