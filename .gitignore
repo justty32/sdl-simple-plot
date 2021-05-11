@@ -1,5 +1,7 @@
 build/*
 */.vscode
+*/exe
+*/main
 
 # Prerequisites
 *.d
