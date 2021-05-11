@@ -16,13 +16,27 @@ struct Chart : public Object{
     Data<T>* data = nullptr;
     int x1 = 0, x2 = 1024;
     T y1 = 0, y2 =100;
+    
     bool in_rect(SDL_Point point){
-        return point.x >= x1 && point.x < x2
-            && point.y >= y1 && point.y < y2;
+        return point.x >= x1 && point.x < x2 && point.y >= y1 && point.y < y2;
     }
     bool in_rect(SDL_Point point, int x_, int y_, int w_, int h_){
-        return point.x >= x_ && point.x < x_ + w_
-            && point.y >= y_ && point.y < y_ + h_;
+        return point.x >= x_ && point.x < x_ + w_ && point.y >= y_ && point.y < y_ + h_;
+    }
+    bool is_intersect(array<SDL_Point,4> lines, SDL_Point& intersect_p){
+        int left1 = 0, left2 = 0, up1 = 0, up2 = 0;
+        for(int i = 0; i < lines.size(); i++){
+            if (lines[i].x < lines[left1].x) left1 = i;
+            if (lines[i].y > lines[up1].y) up1 = i
+        }
+        for(int i = 0; i < lines.size(); i++){
+            if (i != left1 && lines[i].x < lines[left2].x) left2 = i;
+            if (i != up1 && lines[i].y > lines[up2].x) up2 = i;
+        }
+        if ((left1 + left2 == 1 || left1 + left2 == 5)
+            ||(up1 + up2 == 1 || up1 + up2 == 5))
+            return false;
+        // TODO : intersection
     }
     void transform(SDL_Point& point){
         if (!in_rect(point)) return;
@@ -53,15 +67,8 @@ struct Chart : public Object{
         if (!legal()) return {};
         std::vector<std::array<SDL_Point,2>> result;
         for(int i = x1+1, i < x2; i++){
-            T p1 = data->vec[i-1], p2 = data->vec[i];
-            if (!in_rect(p1) && !in_rect(p2)) //if the line not in chart
-                continue;
-            double m = static_cast<double>(p2.y - p1.y) / (p2.x - p1.x);
-            if (!in_rect(p2)){
-
-            }else if (!in_rect(p1)){
-
-            }
+            T y1 = data->vec[i-1], y2 = data->vec[i];
+            
         }
         return result;
     }
