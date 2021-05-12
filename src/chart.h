@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <array>
+#include "mymath.h"
 #include "data.h"
 
 struct Object{
@@ -12,31 +13,22 @@ struct Object{
 };
 
 template<typename T>
-struct Chart : public Object{
+struct Chart{
     Data<T>* data = nullptr;
     int x1 = 0, x2 = 1024;
     T y1 = 0, y2 =100;
+    int x = 0, y = 0, w = 800, h = 600;
+    std::vector<SDL_Point> get_points(int target_w, int target_h){
+
+    }
+
+
     
     bool in_rect(SDL_Point point){
         return point.x >= x1 && point.x < x2 && point.y >= y1 && point.y < y2;
     }
     bool in_rect(SDL_Point point, int x_, int y_, int w_, int h_){
         return point.x >= x_ && point.x < x_ + w_ && point.y >= y_ && point.y < y_ + h_;
-    }
-    bool is_intersect(array<SDL_Point,4> lines, SDL_Point& intersect_p){
-        int left1 = 0, left2 = 0, up1 = 0, up2 = 0;
-        for(int i = 0; i < lines.size(); i++){
-            if (lines[i].x < lines[left1].x) left1 = i;
-            if (lines[i].y > lines[up1].y) up1 = i
-        }
-        for(int i = 0; i < lines.size(); i++){
-            if (i != left1 && lines[i].x < lines[left2].x) left2 = i;
-            if (i != up1 && lines[i].y > lines[up2].x) up2 = i;
-        }
-        if ((left1 + left2 == 1 || left1 + left2 == 5)
-            ||(up1 + up2 == 1 || up1 + up2 == 5))
-            return false;
-        // TODO : intersection
     }
     void transform(SDL_Point& point){
         if (!in_rect(point)) return;
@@ -72,7 +64,6 @@ struct Chart : public Object{
         }
         return result;
     }
-    void update(double pass_time);
 };
 
 #endif // ! MY_CHART_T
